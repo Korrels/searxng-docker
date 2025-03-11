@@ -2,10 +2,30 @@
 use_default_settings: true
 server:
   # base_url is defined in the SEARXNG_BASE_URL environment variable, see .env and docker-compose.yml
-  secret_key: "ultrasecretkey"  # change this!
+  secret_key: dEo7UYIHJw
   limiter: true  # can be disabled for a private instance
   image_proxy: true
 ui:
   static_use_hash: true
 redis:
-  url: redis://redis:6379/0
+  url: 
+search:
+    formats:
+        - html
+        - json
+name: "Ollama Llama3.1"
+engine: "json"
+shortcut: "llama"
+search_url: "http://localhost:11434/api/generate"
+method: "POST"
+headers:
+    Content-Type: "application/json"
+post_data:
+    model: "llama3.1"
+    prompt: "{query}"
+response_type: "json"
+results:
+    - url: "http://localhost:11434"
+      title: "Llama 3.1 AI Response"
+      content: "{{ json.response }}"
+
